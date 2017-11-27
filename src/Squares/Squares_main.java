@@ -4,7 +4,7 @@ public class Squares_main {
 
 	public static void main(String[] args) {
 		double x[] = { 0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2 };
-		double y[] = { 1.0, 1.4, 3.6, 4.8, 5.2, 6.9, 7.4 };
+		double y[] = { 1.0, 1.5, 3.0, 4.5, 6.0, 7.5, 9.0 };
 		double theta[] = new double[2];
 		
 		Squares_lib slib = new Squares_lib(x, y);
