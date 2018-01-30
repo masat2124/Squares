@@ -1,12 +1,7 @@
 package Squares;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Arrays;
-
 
 public class Squares_main {
 
@@ -23,6 +18,7 @@ public class Squares_main {
 		Squares_lib slib = new Squares_lib(x, y);
 		double theta[] = new double[2];
 		double value[] = new double[100];
+		double values[][] = new double[100][4];
 		
 		for (int i = 0; i < 100; i++)
 		{
@@ -32,11 +28,16 @@ public class Squares_main {
 			System.out.println(
 				i + ": Objective function = " + slib.getObject());
 			value[i] = slib.getObject();
+			values[i][0] = i;
+			values[i][1] = value[i];
+			values[i][2] = theta[0];
+			values[i][3] = theta[1];
 		}
 		
 		Graph graph = new Graph(value);
 		graph.setBounds(5, 5, 655, 455);
 		graph.setVisible(true);
+		smain.writeCSV("csv/result.csv", values);
 	}
 	
 	public double[] getCSV1(String path, int n) {
@@ -66,5 +67,25 @@ public class Squares_main {
 				
 		System.out.println("CSV = " + Arrays.toString(csvdata));
 		return csvdata;
+	}
+	
+	public void writeCSV(String path, double[][] data) {
+		try {
+			FileWriter fw = new FileWriter(path, false);
+			PrintWriter pw = new PrintWriter(new BufferedWriter(fw));
+			pw.print("id,objective,theta0,theta1");
+			pw.println();
+			for (int i = 0; i < data.length; i++) {
+				for (int j  = 0; j < data[0].length; j++) {
+					pw.print(data[i][j]);
+					pw.print(",");
+				}
+				pw.println();
+			}
+			pw.close();
+			System.out.println("Output succeeded:" + path);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
